@@ -1,0 +1,24 @@
+[tool.poetry]
+name = "src"
+version = "0.1.0"
+description = ""
+authors = ["jorge <jorgepadres789@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+bytewax = "^0.20.1"
+loguru = "^0.7.2"
+confluent-kafka = "^2.5.0"
+requests = "^2.32.3"
+jsonschema = "^4.23.0"
+openmeteo-requests = "^1.2.0"
+requests-cache = "^1.2.1"
+retry-requests = "^2.0.0"
+numpy = "^2.0.0"
+pandas = "^2.2.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
