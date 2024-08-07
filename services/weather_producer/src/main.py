@@ -84,6 +84,7 @@ def weather_update(
             sleep(0.1)
     admin = AdminClient({"bootstrap.servers": kafka_broker_address})
     
+    # need to return this coordinates some how using api or a internet tool 
     latitude = 32.7157
     longitude = -117.1647
 
@@ -107,19 +108,22 @@ def weather_update(
 
     elif kafka_topic == "weather_daily_forecast":
         
-        forecast_data = weekly_weather.daily_forecast()
-        
-        # Add data to input topic
-        kafka_messages(
-            kafka_topic = kafka_topic, 
-            producer = producer, 
-            data = forecast_data, 
-            key = 'timestamp',
-            admin=admin,
-            )
-        
-        producer.flush()
-        logger.info(f"Successfully updated forecast to {kafka_topic} topic")
+        # keeps returning current weather data everying 30 seconds. probably change to a hr? look into
+        while True:
+            forecast_data = weekly_weather.daily_forecast()
+            
+            # Add data to input topic
+            kafka_messages(
+                kafka_topic = kafka_topic, 
+                producer = producer, 
+                data = forecast_data, 
+                key = 'timestamp',
+                admin=admin,
+                )
+            
+            producer.flush()
+            logger.info(f"Successfully updated forecast to {kafka_topic} topic")
+            sleep(30)
 
     else:
         
